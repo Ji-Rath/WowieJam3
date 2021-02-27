@@ -5,26 +5,38 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject followTarget;
-    public GameObject mesh;
     public float Torque = 2.0f;
     public Transform camTransform;
+    public float jumpForce = 100f;
+
+    public float groundDistance = 10f;
+
+    float upVelocity = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Rigidbody body = gameObject.GetComponent<Rigidbody>();
+        body.maxAngularVelocity = 25f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+            Rigidbody body = gameObject.GetComponent<Rigidbody>();
+            body.AddForce(0f, jumpForce, 0f);
+        }
     }
 
-    void FixedUpdate()
+    private void CalculateMovement()
     {
         float horizonalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
-        Rigidbody body = mesh.GetComponent<Rigidbody>();
+        Rigidbody body = gameObject.GetComponent<Rigidbody>();
         Vector3 moveDirection = new Vector3(verticalInput, 0.0f, -horizonalInput).normalized;
 
         if (moveDirection.magnitude > 0.1f)
@@ -32,7 +44,27 @@ public class PlayerController : MonoBehaviour
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + camTransform.eulerAngles.y;
 
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            body.AddTorque(moveDirection * Torque * Time.deltaTime);
+            body.AddTorque(moveDirection * Torque * Time.fixedDeltaTime);
         }
+    }
+
+    void FixedUpdate()
+    {
+        CalculateMovement();
+
+        // We need to cache velocity here since on collision, the velocity is near 0
+        upVelocity = GetComponent<Rigidbody>().velocity.y;
+    }
+
+    public float GetUpVelocity()
+    {
+        return upVelocity;
+    }
+
+    public bool IsGrounded()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        return Physics.Raycast(ray, groundDistance);
+        
     }
 }

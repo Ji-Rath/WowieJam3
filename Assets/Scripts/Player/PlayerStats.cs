@@ -9,10 +9,10 @@ public class PlayerStats : MonoBehaviour
     public int Points = 0;
     public float Health = 100f;
 
-    public bool bBurning = false;
+    public bool isBurning = false;
     public float burningMultiplier = 2f;
 
-    public bool bPoisoned = false;
+    public bool isPoisoned = false;
     public float poisonMultiplier = 2f;
 
     public int airbornePoints = 0;
@@ -39,6 +39,9 @@ public class PlayerStats : MonoBehaviour
         {
             // End game
         }
+
+        Debug.Log("Health: " + Health);
+        Debug.Log("Points: " + Points);
     }
     
     /// <summary>
@@ -50,9 +53,9 @@ public class PlayerStats : MonoBehaviour
         float currentMultiplier = 1;
 
         // Check for multipliers
-        if (bBurning)
+        if (isBurning)
             currentMultiplier += burningMultiplier;
-        if (bPoisoned)
+        if (isPoisoned)
             currentMultiplier += poisonMultiplier;
 
         currentMultiplier += comboCount;

@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476584109336010548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.875576, y: -1.8543521, z: -9.183483}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 476584109426263905}
@@ -77,9 +77,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 476584107908222111}
-  mesh: {fileID: 476584109336010548}
   Torque: 500
   camTransform: {fileID: 0}
+  jumpForce: 100
+  groundDistance: 10
 --- !u!114 &729084445787376260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,9 +95,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Points: 0
   Health: 0
-  bBurning: 0
+  isBurning: 0
   burningMultiplier: 2
-  bPoisoned: 0
+  isPoisoned: 0
   poisonMultiplier: 2
   airbornePoints: 0
   comboCount: 0
@@ -143,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476584109426263910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.875576, y: 4.325352, z: 9.183483}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 476584107908222110}

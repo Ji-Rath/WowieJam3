@@ -5,8 +5,8 @@ using UnityEngine;
 public class Mousetrap : DamageDealer
 {
     bool bActivated = false;
-    float LaunchForce = 100f;
-    float TrapRadius = 25f;
+    public float LaunchForce = 100f;
+    public float TrapRadius = 25f;
 
     public override bool CanDealDamage(GameObject player)
     {

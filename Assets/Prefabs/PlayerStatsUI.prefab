@@ -316,6 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344c517e5341bb448af273b59ea35942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  healthText: {fileID: 8342416582459206582}
+  potentialPointsText: {fileID: 8342416582892593959}
+  totalScoreText: {fileID: 8342416583647119832}
 --- !u!1 &8342416583647119834
 GameObject:
   m_ObjectHideFlags: 0
