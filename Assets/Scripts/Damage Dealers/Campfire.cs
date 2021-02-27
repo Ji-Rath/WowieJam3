@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Campfire : DamageDealer
 {
+    public float pushForce = 1000f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,9 @@ public class Campfire : DamageDealer
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         playerStats.isBurning = true;
+        float camAngle = player.GetComponent<PlayerController>().camTransform.eulerAngles.y;
+        Vector3 moveDirection = Quaternion.Euler(0f, camAngle, 0f) * Vector3.forward;
+        player.GetComponent<Rigidbody>().AddForce(moveDirection * pushForce);
         playerStats.TakeDamage(GetDamageInfo());
     }
 }

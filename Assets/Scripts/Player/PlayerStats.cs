@@ -15,18 +15,43 @@ public class PlayerStats : MonoBehaviour
     public bool isPoisoned = false;
     public float poisonMultiplier = 2f;
 
-    public int airbornePoints = 0;
+    bool bisAirborne = false;
+    public float airbornePoints = 0;
     public int comboCount = 0;
+
+    public float wallSplatMinSpeed = 5;
 
     void Start()
     {
 
     }
 
+    void FixedUpdate()
+    {
+        // Probably not very performant
+        if (bisAirborne)
+        {
+            if (GetComponent<PlayerController>().IsGrounded())
+            {
+                bisAirborne = false;
+            }
+            else
+            {
+                airbornePoints += 0.5f;
+                playerDamage?.Invoke();
+            }
+        }
+        else
+        {
+            if (!GetComponent<PlayerController>().IsGrounded())
+                bisAirborne = true;
+        }
+    }
+
     // Called when the player takes damage
     public void TakeDamage(DamageInfo damageInfo)
     {
-        Health -= damageInfo.damage;
+        Health -= Mathf.Round(damageInfo.damage);
         Points += (int)((damageInfo.pointsPerDamage + airbornePoints) * GetMultiplier()); // Apply points multiplier and airbone points, then round down
         airbornePoints = 0;
         comboCount++;
@@ -39,9 +64,6 @@ public class PlayerStats : MonoBehaviour
         {
             // End game
         }
-
-        Debug.Log("Health: " + Health);
-        Debug.Log("Points: " + Points);
     }
     
     /// <summary>
@@ -68,6 +90,16 @@ public class PlayerStats : MonoBehaviour
         // Reset airborne points and combo when touching the ground
         if (!collision.gameObject.GetComponent<DamageDealer>())
         {
+            // Calculate wall splat damage
+            Vector3 velocity = GetComponent<PlayerController>().GetVelocity();
+            Vector3 normal = collision.GetContact(0).normal;
+            Vector3 splatSpeed = Vector3.Scale(velocity, normal);
+            float speed = splatSpeed.magnitude;
+            if (speed > wallSplatMinSpeed)
+            {
+                TakeDamage(new DamageInfo(speed, (int)(0.5f * speed)));
+            }
+
             comboCount = 0;
             airbornePoints = 0;
         }

@@ -11,13 +11,11 @@ public class PlayerController : MonoBehaviour
 
     public float groundDistance = 10f;
 
-    float upVelocity = 0;
+    Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         Rigidbody body = gameObject.GetComponent<Rigidbody>();
         body.maxAngularVelocity = 25f;
     }
@@ -53,18 +51,17 @@ public class PlayerController : MonoBehaviour
         CalculateMovement();
 
         // We need to cache velocity here since on collision, the velocity is near 0
-        upVelocity = GetComponent<Rigidbody>().velocity.y;
+        velocity = GetComponent<Rigidbody>().velocity;
     }
 
-    public float GetUpVelocity()
+    public Vector3 GetVelocity()
     {
-        return upVelocity;
+        return velocity;
     }
 
     public bool IsGrounded()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         return Physics.Raycast(ray, groundDistance);
-        
     }
 }

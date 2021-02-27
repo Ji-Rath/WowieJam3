@@ -26,7 +26,7 @@ public class PlayerStatsUI : MonoBehaviour
     void UpdateUI()
     {
         healthText.text = "Health: " + playerStats.Health;
-        potentialPointsText.text = "PP: " + playerStats.airbornePoints + " x " + playerStats.GetMultiplier();
+        potentialPointsText.text = "PP: " + Mathf.RoundToInt(playerStats.airbornePoints) + " x " + playerStats.GetMultiplier();
         totalScoreText.text = "Score: " + playerStats.Points;
     }
 
