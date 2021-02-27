@@ -25,14 +25,14 @@ public class PlayerController : MonoBehaviour
         float horizonalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         Rigidbody body = mesh.GetComponent<Rigidbody>();
-        Vector3 moveDirection = new Vector3(verticalInput, 0.0f, horizonalInput).normalized;
+        Vector3 moveDirection = new Vector3(verticalInput, 0.0f, -horizonalInput).normalized;
 
         if (moveDirection.magnitude > 0.1f)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + camTransform.eulerAngles.y;
 
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            body.AddRelativeTorque(moveDirection * Torque);
+            body.AddTorque(moveDirection * Torque * Time.deltaTime);
         }
     }
 }

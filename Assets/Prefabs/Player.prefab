@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 476584109336010546}
   - component: {fileID: 476584109336010547}
   - component: {fileID: 729084445787376260}
+  - component: {fileID: 3314490098485015212}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -76,8 +77,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 476584107908222111}
-  mesh: {fileID: 476584109426263910}
-  Torque: 2
+  mesh: {fileID: 476584109336010548}
+  Torque: 500
   camTransform: {fileID: 0}
 --- !u!114 &729084445787376260
 MonoBehaviour:
@@ -99,6 +100,22 @@ MonoBehaviour:
   poisonMultiplier: 2
   airbornePoints: 0
   comboCount: 0
+--- !u!54 &3314490098485015212
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476584109336010548}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &476584109426263910
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +128,6 @@ GameObject:
   - component: {fileID: 476584109426263907}
   - component: {fileID: 476584109426263909}
   - component: {fileID: 476584109426263904}
-  - component: {fileID: 476584109426263908}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -194,19 +210,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &476584109426263908
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 476584109426263910}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
