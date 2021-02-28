@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuCanvas: {fileID: 5080546794731689720}
-  mainGameSceneIndex: 0
+  mainGameSceneIndex: 1
 --- !u!1 &5080546795168930078
 GameObject:
   m_ObjectHideFlags: 0

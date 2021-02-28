@@ -983,5 +983,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FinalScoreText: {fileID: 3365370593507982540}
   DeadUICanvas: {fileID: 4439011406488906329}
-  mainGameSceneIndex: 0
-  mainMenuSceneIndex: 1
+  mainGameSceneIndex: 1
+  mainMenuSceneIndex: 0
