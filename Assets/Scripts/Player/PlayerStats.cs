@@ -73,6 +73,10 @@ public class PlayerStats : MonoBehaviour
             Points += (int)airbornePoints;
             comboCount = 0;
             airbornePoints = 0;
+
+            //Disable effects when finishing combo
+            isBurning = false;
+            isPoisoned = false;
         }
     }
 

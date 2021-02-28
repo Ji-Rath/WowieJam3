@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
 
     public float groundDistance = 10f;
 
+    public float WorldKillY = -25f;
+
     Vector3 velocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
         Rigidbody body = gameObject.GetComponent<Rigidbody>();
-        body.maxAngularVelocity = 25f;
+        body.maxAngularVelocity = 20f;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -63,6 +65,12 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         CalculateMovement();
+
+        //Prevent soft lock when falling off map
+        if (transform.position.y < WorldKillY)
+        {
+            GetComponent<PlayerStats>().TakeDamage(new DamageInfo(10000, 0));
+        }
 
         // We need to cache velocity here since on collision, the velocity is near 0
         velocity = GetComponent<Rigidbody>().velocity;

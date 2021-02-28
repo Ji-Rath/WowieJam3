@@ -79,7 +79,7 @@ MonoBehaviour:
   followTarget: {fileID: 476584107908222111}
   Torque: 500
   camTransform: {fileID: 0}
-  jumpForce: 100
+  jumpForce: 250
   groundDistance: 10
 --- !u!114 &729084445787376260
 MonoBehaviour:
@@ -94,13 +94,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: 0
-  Health: 0
-  isBurning: 0
+  Health: 100
   burningMultiplier: 2
-  isPoisoned: 0
+  isBurning: 0
   poisonMultiplier: 2
+  isPoisoned: 0
   airbornePoints: 0
   comboCount: 0
+  wallSplatMinSpeed: 5
+  airbornePointsRate: 1
+  deadUIPrefab: {fileID: 4439011406589234137, guid: 9ea80d28e1ed5b742afa69abb78a3527,
+    type: 3}
+  playerStatsUIPrefab: {fileID: 8342416583260833771, guid: 7d48c4342b9a82347a9abfad4961aa58,
+    type: 3}
 --- !u!54 &3314490098485015212
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -145,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 476584109426263910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 476584107908222110}
   m_Father: {fileID: 476584109336010546}

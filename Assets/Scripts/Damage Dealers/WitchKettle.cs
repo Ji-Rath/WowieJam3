@@ -26,7 +26,19 @@ public class WitchKettle : DamageDealer
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         playerStats.isPoisoned = true;
-        player.GetComponent<Rigidbody>().AddForce(0f, upForce, 0f);
+        Vector3 direction = Quaternion.Euler(transform.rotation.eulerAngles) * Vector3.up;
+        GetComponent<Collider>().enabled = false;
+        player.transform.position = transform.position;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().AddForce(direction * upForce);
         playerStats.TakeDamage(GetDamageInfo());
+
+        StartCoroutine(EnableKettle());
+    }
+
+    public IEnumerator EnableKettle()
+    {
+        yield return new WaitForSeconds(1);
+        GetComponent<Collider>().enabled = true;
     }
 }
