@@ -10,10 +10,15 @@ public class PlayerStatsUI : MonoBehaviour
     public TMP_Text potentialPointsText;
     public TMP_Text totalScoreText;
 
+    Animator ppAnimator;
+    int cachedPoints;
+
     // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
         playerStats.playerDamage += UpdateUI;
+        cachedPoints = playerStats.Points;
+        ppAnimator = potentialPointsText.gameObject.GetComponent<Animator>();
         UpdateUI();
     }
 
@@ -26,8 +31,21 @@ public class PlayerStatsUI : MonoBehaviour
     void UpdateUI()
     {
         healthText.text = "Health: " + playerStats.Health;
-        potentialPointsText.text = "PP: " + Mathf.RoundToInt(playerStats.airbornePoints) + " x " + playerStats.GetMultiplier();
         totalScoreText.text = "Score: " + playerStats.Points;
+
+        if (playerStats.airbornePoints == 0)
+        {
+            ppAnimator.SetTrigger("FinishPoints");
+        }
+        else
+        {
+            ppAnimator.ResetTrigger("FinishPoints");
+            potentialPointsText.text = "PP: " + Mathf.RoundToInt(playerStats.airbornePoints) + " x " + playerStats.GetMultiplier();
+        }
+        
+
+        cachedPoints = playerStats.Points;
+        ppAnimator.SetFloat("Points", playerStats.airbornePoints);
     }
 
     void OnDestroy()

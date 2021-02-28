@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
     public GameObject MenuCanvas;
+    public int mainGameSceneIndex;
 
     public void StartGame()
     {
+        SceneManager.LoadScene(mainGameSceneIndex);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         MenuCanvas.SetActive(false);

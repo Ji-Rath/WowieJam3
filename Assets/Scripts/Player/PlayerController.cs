@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     {
         Rigidbody body = gameObject.GetComponent<Rigidbody>();
         body.maxAngularVelocity = 25f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -35,14 +38,25 @@ public class PlayerController : MonoBehaviour
         float horizonalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         Rigidbody body = gameObject.GetComponent<Rigidbody>();
-        Vector3 moveDirection = new Vector3(verticalInput, 0.0f, -horizonalInput).normalized;
+        Vector3 moveDirection = new Vector3(verticalInput, 0.0f, horizonalInput).normalized;
 
         if (moveDirection.magnitude > 0.1f)
         {
-            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + camTransform.eulerAngles.y;
-
-            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            body.AddTorque(moveDirection * Torque * Time.fixedDeltaTime);
+            float targetAngle;
+            if (IsGrounded())
+            {
+                // Use torque to move the player around
+                targetAngle = Mathf.Atan2(moveDirection.x, -moveDirection.z) * Mathf.Rad2Deg + camTransform.eulerAngles.y;
+                moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                body.AddTorque(moveDirection * Torque * Time.fixedDeltaTime);
+            }
+            else
+            {
+                // Give the player some air control
+                targetAngle = Mathf.Atan2(moveDirection.z, moveDirection.x) * Mathf.Rad2Deg + camTransform.eulerAngles.y;
+                moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                body.AddForce(moveDirection * Torque * Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -57,6 +71,12 @@ public class PlayerController : MonoBehaviour
     public Vector3 GetVelocity()
     {
         return velocity;
+    }
+
+    public bool IsGrounded(out RaycastHit hit)
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+        return Physics.Raycast(ray, out hit, groundDistance);
     }
 
     public bool IsGrounded()

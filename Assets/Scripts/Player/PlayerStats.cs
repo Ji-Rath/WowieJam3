@@ -6,24 +6,40 @@ using System;
 public class PlayerStats : MonoBehaviour
 {
     public event Action playerDamage;
+    [HideInInspector]
     public int Points = 0;
     public float Health = 100f;
 
-    public bool isBurning = false;
+    [Space]
     public float burningMultiplier = 2f;
+    [HideInInspector]
+    public bool isBurning = false;
 
-    public bool isPoisoned = false;
     public float poisonMultiplier = 2f;
+    [HideInInspector]
+    public bool isPoisoned = false;
+    
 
+    [HideInInspector]
     bool bisAirborne = false;
+    [HideInInspector]
     public float airbornePoints = 0;
+    [HideInInspector]
     public int comboCount = 0;
 
+    [Space]
     public float wallSplatMinSpeed = 5;
+    public float airbornePointsRate = 1f;
+
+    [Space]
+    public GameObject deadUIPrefab;
+    public GameObject playerStatsUIPrefab;
 
     void Start()
     {
-
+        playerStatsUIPrefab = Instantiate(playerStatsUIPrefab);
+        playerStatsUIPrefab.GetComponent<PlayerStatsUI>().playerStats = this;
+        playerStatsUIPrefab.GetComponent<PlayerStatsUI>().Initialize();
     }
 
     void FixedUpdate()
@@ -37,33 +53,52 @@ public class PlayerStats : MonoBehaviour
             }
             else
             {
-                airbornePoints += 0.5f;
+                airbornePoints += airbornePointsRate * Time.fixedDeltaTime;
                 playerDamage?.Invoke();
             }
         }
         else
         {
-            if (!GetComponent<PlayerController>().IsGrounded())
+            if (!GetComponent<PlayerController>().IsGrounded() && comboCount > 0)
                 bisAirborne = true;
+        }
+    }
+
+    private void CalculatePoints()
+    {
+        RaycastHit hit;
+        if (GetComponent<PlayerController>().IsGrounded(out hit) && hit.collider.GetComponent<DamageDealer>() == null)
+        {
+            // Apply gained points and reset stats
+            Points += (int)airbornePoints;
+            comboCount = 0;
+            airbornePoints = 0;
         }
     }
 
     // Called when the player takes damage
     public void TakeDamage(DamageInfo damageInfo)
     {
+        if (!IsAlive()) { return; } // Prevent additional damage/points after death
         Health -= Mathf.Round(damageInfo.damage);
-        Points += (int)((damageInfo.pointsPerDamage + airbornePoints) * GetMultiplier()); // Apply points multiplier and airbone points, then round down
-        airbornePoints = 0;
+        airbornePoints += (int)((damageInfo.pointsPerDamage + airbornePoints) * GetMultiplier()); // Apply points multiplier and airbone points, then round down
         comboCount++;
 
         playerDamage?.Invoke();
 
-        //@TODO Use event playerDamage to implement UI
-
-        if (Health <= 0)
+        // Show Dead UI screen
+        if (!IsAlive())
         {
-            // End game
+            playerStatsUIPrefab.SetActive(false);
+            GameObject endScreen = Instantiate(deadUIPrefab);
+            DeadUI deadUI = endScreen.GetComponent<DeadUI>();
+            deadUI.DisplayScore(Points);
         }
+    }
+
+    public bool IsAlive()
+    {
+        return Health > 0;
     }
     
     /// <summary>
@@ -100,8 +135,9 @@ public class PlayerStats : MonoBehaviour
                 TakeDamage(new DamageInfo(speed, (int)(0.5f * speed)));
             }
 
-            comboCount = 0;
-            airbornePoints = 0;
+            CalculatePoints();
+
+            playerDamage?.Invoke();
         }
     }
 }
