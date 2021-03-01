@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb646b6ff2eacf48b54cb36f4b34465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound:
+  - {fileID: 8300000, guid: 66bc8ed52b30f3c49bfa1db324da832e, type: 3}
   upForce: 1000
 --- !u!65 &2186717341218296080
 BoxCollider:

@@ -6,7 +6,13 @@ using UnityEngine;
 public class DamageDealer : MonoBehaviour
 {
     public DamageInfo damageInfo;
+    protected AudioSource audioSource;
+    public List<AudioClip> damageSound;
 
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
     public DamageInfo GetDamageInfo()
     {
         return damageInfo;
@@ -40,7 +46,14 @@ public class DamageDealer : MonoBehaviour
         if (playerStats != null && CanDealDamage(playerRef))
         {
             OnPlayerCollide(playerRef);
+            if (damageSound != null)
+                audioSource.PlayOneShot(GetRandomSound(damageSound));
         }
+    }
+
+    AudioClip GetRandomSound(List<AudioClip> soundList)
+    {
+        return soundList[Random.Range(0, soundList.Count - 1)];
     }
 };
 

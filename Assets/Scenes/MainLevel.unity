@@ -700,6 +700,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7154103840268736163, guid: 2caeb7db33dfb45438f0c9826c03bc24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2caeb7db33dfb45438f0c9826c03bc24, type: 3}
+--- !u!82 &189287230 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5009574622258458312, guid: 6367198d836d3404e98fe08c58bcb08f,
+    type: 3}
+  m_PrefabInstance: {fileID: 962983477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212088186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,7 +1732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478688227}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.25, y: -8.75, z: -28.75}
+  m_LocalPosition: {x: -10.25, y: -9, z: -28.75}
   m_LocalScale: {x: 1, y: 25, z: 1}
   m_Children:
   - {fileID: 640683537}
@@ -3221,24 +3227,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 476584109336010547, guid: 6367198d836d3404e98fe08c58bcb08f,
         type: 3}
-      propertyPath: Torque
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 476584109336010547, guid: 6367198d836d3404e98fe08c58bcb08f,
-        type: 3}
-      propertyPath: jumpForce
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 476584109336010547, guid: 6367198d836d3404e98fe08c58bcb08f,
-        type: 3}
-      propertyPath: WorldKillY
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 476584109336010547, guid: 6367198d836d3404e98fe08c58bcb08f,
-        type: 3}
       propertyPath: camTransform
       value: 
       objectReference: {fileID: 332439239}
+    - target: {fileID: 476584109336010547, guid: 6367198d836d3404e98fe08c58bcb08f,
+        type: 3}
+      propertyPath: ballRollSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d75176d2cf8435448b97101026c7a4bb, type: 3}
+    - target: {fileID: 476584109336010547, guid: 6367198d836d3404e98fe08c58bcb08f,
+        type: 3}
+      propertyPath: groundDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 476584109336010548, guid: 6367198d836d3404e98fe08c58bcb08f,
         type: 3}
       propertyPath: m_Name
@@ -3246,9 +3247,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 729084445787376260, guid: 6367198d836d3404e98fe08c58bcb08f,
         type: 3}
-      propertyPath: wallSplatMinSpeed
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 189287230}
     - target: {fileID: 3314490098485015212, guid: 6367198d836d3404e98fe08c58bcb08f,
         type: 3}
       propertyPath: m_Drag
@@ -3256,8 +3257,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3314490098485015212, guid: 6367198d836d3404e98fe08c58bcb08f,
         type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314490098485015212, guid: 6367198d836d3404e98fe08c58bcb08f,
+        type: 3}
       propertyPath: m_AngularDrag
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239504227910412397, guid: 6367198d836d3404e98fe08c58bcb08f,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6367198d836d3404e98fe08c58bcb08f, type: 3}
@@ -5593,7 +5604,7 @@ PrefabInstance:
     - target: {fileID: 7154103840268736161, guid: 2caeb7db33dfb45438f0c9826c03bc24,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.907661
+      value: 16.66
       objectReference: {fileID: 0}
     - target: {fileID: 7154103840268736161, guid: 2caeb7db33dfb45438f0c9826c03bc24,
         type: 3}

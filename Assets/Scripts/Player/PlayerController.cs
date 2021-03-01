@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
 
     Vector3 velocity = Vector3.zero;
 
+    AudioSource audioSource;
+    public AudioClip ballRollSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -74,6 +79,24 @@ public class PlayerController : MonoBehaviour
 
         // We need to cache velocity here since on collision, the velocity is near 0
         velocity = GetComponent<Rigidbody>().velocity;
+
+        if (IsGrounded() && velocity.magnitude > 0)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = ballRollSound;
+                audioSource.Play();
+            }
+            else
+            {
+                audioSource.volume = velocity.magnitude / 20;
+            }
+        }
+        else if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+            audioSource.volume = 1f;
+        }
     }
 
     public Vector3 GetVelocity()
