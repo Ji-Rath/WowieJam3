@@ -35,11 +35,18 @@ public class PlayerStats : MonoBehaviour
     public GameObject deadUIPrefab;
     public GameObject playerStatsUIPrefab;
 
+    AudioSource audioSource;
+    public AudioClip CompleteComboSound;
+    public AudioClip ballSplatSound;
+
+    public AudioSource musicSource;
+
     void Start()
     {
         playerStatsUIPrefab = Instantiate(playerStatsUIPrefab);
         playerStatsUIPrefab.GetComponent<PlayerStatsUI>().playerStats = this;
         playerStatsUIPrefab.GetComponent<PlayerStatsUI>().Initialize();
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -69,10 +76,19 @@ public class PlayerStats : MonoBehaviour
         RaycastHit hit;
         if (GetComponent<PlayerController>().IsGrounded(out hit) && hit.collider.GetComponent<DamageDealer>() == null)
         {
+            if (airbornePoints > 500f)
+            {
+                audioSource.PlayOneShot(CompleteComboSound, 0.25f);
+            }
+
             // Apply gained points and reset stats
             Points += (int)airbornePoints;
             comboCount = 0;
             airbornePoints = 0;
+
+            //Disable effects when finishing combo
+            isBurning = false;
+            isPoisoned = false;
         }
     }
 
@@ -93,6 +109,7 @@ public class PlayerStats : MonoBehaviour
             GameObject endScreen = Instantiate(deadUIPrefab);
             DeadUI deadUI = endScreen.GetComponent<DeadUI>();
             deadUI.DisplayScore(Points);
+            musicSource.Stop();
         }
     }
 
@@ -136,6 +153,8 @@ public class PlayerStats : MonoBehaviour
             }
 
             CalculatePoints();
+
+            audioSource.PlayOneShot(ballSplatSound);
 
             playerDamage?.Invoke();
         }

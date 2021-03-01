@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuUI : MonoBehaviour
 {
     public GameObject MenuCanvas;
+    public GameObject HelpCanvas;
     public int mainGameSceneIndex;
 
     public void StartGame()
@@ -23,5 +24,17 @@ public class MainMenuUI : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void GotoHelp()
+    {
+        MenuCanvas.SetActive(false);
+        HelpCanvas.SetActive(true);
+    }
+
+    public void GotoMenu()
+    {
+        MenuCanvas.SetActive(true);
+        HelpCanvas.SetActive(false);
     }
 }

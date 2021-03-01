@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 476584109336010547}
   - component: {fileID: 729084445787376260}
   - component: {fileID: 3314490098485015212}
+  - component: {fileID: 5009574622258458312}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -79,8 +80,10 @@ MonoBehaviour:
   followTarget: {fileID: 476584107908222111}
   Torque: 500
   camTransform: {fileID: 0}
-  jumpForce: 100
-  groundDistance: 10
+  jumpForce: 500
+  groundDistance: 1
+  WorldKillY: -25
+  ballRollSound: {fileID: 0}
 --- !u!114 &729084445787376260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,13 +97,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: 0
-  Health: 0
+  Health: 150
+  burningMultiplier: 1.5
   isBurning: 0
-  burningMultiplier: 2
+  poisonMultiplier: 1.5
   isPoisoned: 0
-  poisonMultiplier: 2
   airbornePoints: 0
   comboCount: 0
+  wallSplatMinSpeed: 15
+  airbornePointsRate: 2
+  deadUIPrefab: {fileID: 4439011406589234137, guid: 9ea80d28e1ed5b742afa69abb78a3527,
+    type: 3}
+  playerStatsUIPrefab: {fileID: 8342416583260833771, guid: 7d48c4342b9a82347a9abfad4961aa58,
+    type: 3}
+  CompleteComboSound: {fileID: 8300000, guid: 5259c684edbdc6b40b1b415cdfc0666d, type: 3}
+  ballSplatSound: {fileID: 8300000, guid: 8d053a7a3b502d345a676f2ed2a456c1, type: 3}
+  musicSource: {fileID: 0}
 --- !u!54 &3314490098485015212
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -117,6 +129,102 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &5009574622258458312
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476584109336010548}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 72a81b389c5f34f48a6eaab9bf3f8755, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &476584109426263910
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 476584109426263910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 476584107908222110}
   m_Father: {fileID: 476584109336010546}
