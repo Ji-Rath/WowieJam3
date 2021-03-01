@@ -5,6 +5,7 @@ using UnityEngine;
 public class WitchKettle : DamageDealer
 {
     public float upForce = 1000f;
+    public ParticleSystem potExplosion;
 
     // Update is called once per frame
     void Update()
@@ -27,6 +28,7 @@ public class WitchKettle : DamageDealer
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().AddForce(direction * upForce);
         playerStats.TakeDamage(GetDamageInfo());
+        potExplosion.Play();
 
         StartCoroutine(EnableKettle());
     }

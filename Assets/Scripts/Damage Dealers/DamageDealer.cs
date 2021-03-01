@@ -46,7 +46,7 @@ public class DamageDealer : MonoBehaviour
         if (playerStats != null && CanDealDamage(playerRef))
         {
             OnPlayerCollide(playerRef);
-            if (damageSound != null)
+            if (damageSound != null && damageSound.Count > 0)
                 audioSource.PlayOneShot(GetRandomSound(damageSound));
         }
     }
